@@ -6,8 +6,9 @@ namespace SortingAlgorthms
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(algorithm1(new int[]{ 12, 11, 13, 5, 6, 7 }, 3));
-            Console.WriteLine(algorithm2(new int[]{ 12, 11, 13, 5, 6, 7 }, 3));
+            Console.WriteLine(algorithm1(new int[] { 12, 11, 13, 5, 6, 7 }, 3));
+            Console.WriteLine(algorithm2(new int[] { 12, 11, 13, 5, 6, 7 }, 3));
+            Console.WriteLine(algorithm3(new int[] { 12, 11, 13, 5, 6, 7 }, 3));
         }
         static int algorithm1(int[] array, int k) {
             MergeSort ms = new MergeSort(array);
@@ -38,6 +39,11 @@ namespace SortingAlgorthms
             }
 
             return pivot;
+        }
+        static int algorithm3(int[] array, int k)
+        {
+            QuickSort qs = new QuickSort(array);
+            return qs.sortUntil(k);
         }
         static void printArray(int[] arr)
         {
