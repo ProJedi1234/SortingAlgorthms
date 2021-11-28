@@ -57,17 +57,14 @@ class QuickSort {
 
             if (k == pi) {
                 return arr[pi - 1];
-            } else {
-                // Separately sort elements before
-                // partition and after partition
-                var x = sortUntil(k, arr, low, pi - 1);
-                var y = sortUntil(k, arr, pi + 1, high);
-
-                if (x.HasValue)
-                    return x;
-                else if (y.HasValue)
-                    return y;
             }
+
+            // Separately sort elements before
+            // partition and after partition
+            if (k - 1 < pi)
+                return sortUntil(k, arr, low, pi - 1);
+            else
+                return sortUntil(k, arr, pi + 1, high);
         }
         return null;
     }
