@@ -1,6 +1,6 @@
 using System;
 class QuickSort {
-    int[] arr;
+    public int[] arr;
     public QuickSort(int[] array) {
         arr = array;
     }
@@ -10,7 +10,7 @@ class QuickSort {
         arr[i] = arr[j];
         arr[j] = temp;
     }
-    static int partition(int[] arr, int low, int high)
+    public static int partition(int[] arr, int low, int high)
     {
         // pivot
         int pivot = arr[low]; 

@@ -18,9 +18,26 @@ namespace SortingAlgorthms
         static int algorithm2(int[] array, int k)
         {
             QuickSort qs = new QuickSort(array);
-            qs.sort();
 
-            return array[k - 1];
+            int m = 0;
+            int j = array.Length - 1;
+            var pivot = -1;
+            while (pivot != k)
+            {
+                pivot = QuickSort.partition(qs.arr, m, j);
+
+                if (k == pivot)
+                    return qs.arr[k - 1];
+                else if (k < pivot)
+                    j = pivot - 1;
+                else
+                {
+                    m = pivot + 1;
+                    k = k - pivot;
+                }
+            }
+
+            return pivot;
         }
         static void printArray(int[] arr)
         {
