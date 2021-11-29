@@ -24,6 +24,7 @@ namespace SortingAlgorthms
                     Console.WriteLine("algorithm 1:\t{0} ms", runTester(() => { return algorithm1(arr, k); }));
                     Console.WriteLine("algorithm 2:\t{0} ms", runTester(() => { return algorithm2(arr, k); }));
                     Console.WriteLine("algorithm 3:\t{0} ms", runTester(() => { return algorithm3(arr, k); }));
+                    Console.WriteLine("algorithm 4:\t{0} ms", runTester(() => { return algorithm4(arr, k); }));
                     Console.WriteLine();
                 }
                 Console.WriteLine("-------------------------------\n");
@@ -85,6 +86,11 @@ namespace SortingAlgorthms
         {
             QuickSort qs = new QuickSort(array);
             return qs.sortUntil(k);
+        }
+        static int algorithm4(int[] array, int k)
+        {
+            QuickSort qs = new QuickSort(array);
+            return qs.sortUntil(k, true);
         }
         static void printArray(int[] arr)
         {

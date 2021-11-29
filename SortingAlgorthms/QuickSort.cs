@@ -36,10 +36,10 @@ class QuickSort {
         swap(arr, i, low);
         return (i + 1);
     }
-    public static int partitionMM(int[] arr, int low, int high)
+    public int partitionMM(int[] arr, int low, int high)
     {
         // pivot
-        int pivot = arr[low];
+        int pivot = low == 0 && high == arr.Length - 1 ? MedianOfMedians(arr, 1) : arr[low];
 
         // Index of smaller element and
         // indicates the right position
@@ -99,10 +99,15 @@ class QuickSort {
     }
     #endregion
     #region Sort Until
-    int? sortUntil(int k, int[] arr, int low, int high) {
+    int? sortUntil(int k, int[] arr, int low, int high, bool MM = false) {
         if (low < high) 
         {
-            int pi = partition(arr, low, high);
+            int pi = 0;
+
+            if (MM)
+                pi = partitionMM(arr, low, high);
+            else
+                pi = partition(arr, low, high);
 
             if (k == pi) {
                 return arr[pi - 1];
@@ -117,8 +122,8 @@ class QuickSort {
         }
         return arr[0];
     }
-    public int sortUntil(int k) {
-        return sortUntil(k, arr, 0, arr.Length - 1).Value;
+    public int sortUntil(int k, bool MM = false) {
+        return sortUntil(k, arr, 0, arr.Length - 1, MM).Value;
     }
     #endregion
 }
