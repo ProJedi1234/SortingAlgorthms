@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace SortingAlgorthms
 {
@@ -6,9 +7,49 @@ namespace SortingAlgorthms
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(algorithm1(new int[] { 12, 11, 13, 5, 6, 7 }, 3));
-            Console.WriteLine(algorithm2(new int[] { 12, 11, 13, 5, 6, 7 }, 3));
-            Console.WriteLine(algorithm3(new int[] { 12, 11, 13, 5, 6, 7 }, 3));
+            var rnd = new Random();
+            var sizes = new int[]{ 10, 50, 100, 500, 1000, 5000, 10000 };
+            foreach (var size in sizes)
+            {
+                var kTests = new int[] { 1, size/4, size/2, 3*size/4, size };
+                foreach (var k in kTests)
+                {
+                    var arr = new int[size];
+                    for (int i = 0; i < size; i++)
+                    {
+                        arr[i] = rnd.Next(1, 16);
+                    }
+                    Console.WriteLine("Array of size {0} and k of {1}", size, k);
+                    //printArray(arr);
+                    Console.WriteLine("algorithm 1:\t{0} ms", runTester(() => { return algorithm1(arr, k); }));
+                    Console.WriteLine("algorithm 2:\t{0} ms", runTester(() => { return algorithm2(arr, k); }));
+                    Console.WriteLine("algorithm 3:\t{0} ms", runTester(() => { return algorithm3(arr, k); }));
+                    Console.WriteLine();
+                }
+                Console.WriteLine("-------------------------------\n");
+            }
+
+            //Console.WriteLine();
+
+            //var arr = new int[] { 1, 5, 3, 4, 2, 6, 7, 8, 9, 10, 11, 12, 20, 14, 15, 17, 16, 18, 19, 13, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 };
+            //Random random = new Random();
+            //arr = arr.OrderBy(x => random.Next()).ToArray();
+
+            //QuickSort qs = new QuickSort(arr);
+            //printArray(qs.arr);
+            //var median = qs.MedianOfMedians(qs.arr, 0);
+            //Console.WriteLine(median);
+            //printArray(qs.arr);
+            //Console.WriteLine(qs.arr[median]);
+        }
+        static double runTester(Func<int> func)
+        {
+            var watch = new System.Diagnostics.Stopwatch(); //create a stop watch to time the algorithm
+            watch.Start();
+            func();
+            watch.Stop();
+
+            return watch.Elapsed.TotalMilliseconds;
         }
         static int algorithm1(int[] array, int k) {
             MergeSort ms = new MergeSort(array);
@@ -25,7 +66,7 @@ namespace SortingAlgorthms
             var pivot = -1;
             while (pivot != k)
             {
-                pivot = QuickSort.partition(qs.arr, m, j);
+                pivot = QuickSort.partition(qs.arr, m, j) - m;
 
                 if (k == pivot)
                     return qs.arr[k - 1];
