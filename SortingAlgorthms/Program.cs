@@ -9,11 +9,20 @@ namespace SortingAlgorthms
         static void Main(string[] args)
         {
             var csv = "";
+            var algo1csv = "size,timing\n";
+            var algo2csv = "size,timing\n";
+            var algo3csv = "size,timing\n";
+            var algo4csv = "size,timing\n";
 
             var rnd = new Random();
             var sizes = new int[]{ 10, 50, 100, 500, 1000, 5000, 10000 };
             foreach (var size in sizes)
             {
+                double alg1total = 0;
+                double alg2total = 0;
+                double alg3total = 0;
+                double alg4total = 0;
+
                 var kTests = new int[] { 1, size/4, size/2, 3*size/4, size };
                 foreach (var k in kTests)
                 {
@@ -36,8 +45,18 @@ namespace SortingAlgorthms
 
                     csv += "\"Array of size " + size + " and k of " + k + "\"\n";
                     csv += "Alg 1," + alg1 + "\nAlg 2," + alg2 + "\nAlg 3," + alg3 + "\nAlg 4," + alg4 + "\n";
+
+                    alg1total += alg1;
+                    alg2total += alg2;
+                    alg3total += alg3;
+                    alg4total += alg4;
                 }
                 Console.WriteLine("-------------------------------\n");
+
+                algo1csv += size + "," + alg1total/5 + "\n";
+                algo2csv += size + "," + alg2total/5 + "\n";
+                algo3csv += size + "," + alg3total/5 + "\n";
+                algo4csv += size + "," + alg4total/5 + "\n";
             }
 
             //Console.WriteLine();
@@ -54,6 +73,10 @@ namespace SortingAlgorthms
             //Console.WriteLine(qs.arr[median]);
 
             File.WriteAllText("data.csv", csv);
+            File.WriteAllText("algo1.csv", algo1csv);
+            File.WriteAllText("algo2.csv", algo2csv);
+            File.WriteAllText("algo3.csv", algo3csv);
+            File.WriteAllText("algo4.csv", algo4csv);
         }
         static double runTester(Func<int> func)
         {
