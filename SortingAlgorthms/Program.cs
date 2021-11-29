@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 
 namespace SortingAlgorthms
@@ -7,6 +8,8 @@ namespace SortingAlgorthms
     {
         static void Main(string[] args)
         {
+            var csv = "";
+
             var rnd = new Random();
             var sizes = new int[]{ 10, 50, 100, 500, 1000, 5000, 10000 };
             foreach (var size in sizes)
@@ -21,11 +24,18 @@ namespace SortingAlgorthms
                     }
                     Console.WriteLine("Array of size {0} and k of {1}", size, k);
                     //printArray(arr);
-                    Console.WriteLine("algorithm 1:\t{0} ms", runTester(() => { return algorithm1(arr, k); }));
-                    Console.WriteLine("algorithm 2:\t{0} ms", runTester(() => { return algorithm2(arr, k); }));
-                    Console.WriteLine("algorithm 3:\t{0} ms", runTester(() => { return algorithm3(arr, k); }));
-                    Console.WriteLine("algorithm 4:\t{0} ms", runTester(() => { return algorithm4(arr, k); }));
+                    var alg1 = runTester(() => { return algorithm1(arr, k); });
+                    var alg2 = runTester(() => { return algorithm1(arr, k); });
+                    var alg3 = runTester(() => { return algorithm1(arr, k); });
+                    var alg4 = runTester(() => { return algorithm1(arr, k); });
+                    Console.WriteLine("algorithm 1:\t{0} ms", alg1);
+                    Console.WriteLine("algorithm 2:\t{0} ms", alg2);
+                    Console.WriteLine("algorithm 3:\t{0} ms", alg3);
+                    Console.WriteLine("algorithm 4:\t{0} ms", alg4);
                     Console.WriteLine();
+
+                    csv += "\"Array of size " + size + " and k of " + k + "\"\n";
+                    csv += "Alg 1," + alg1 + "\nAlg 2," + alg2 + "\nAlg 3," + alg3 + "\nAlg 4," + alg4 + "\n";
                 }
                 Console.WriteLine("-------------------------------\n");
             }
@@ -42,6 +52,8 @@ namespace SortingAlgorthms
             //Console.WriteLine(median);
             //printArray(qs.arr);
             //Console.WriteLine(qs.arr[median]);
+
+            File.WriteAllText("data.csv", csv);
         }
         static double runTester(Func<int> func)
         {
