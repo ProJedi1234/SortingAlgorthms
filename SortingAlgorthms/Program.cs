@@ -33,10 +33,23 @@ namespace SortingAlgorthms
                     }
                     Console.WriteLine("Array of size {0} and k of {1}", size, k);
                     //printArray(arr);
-                    var alg1 = runTester(() => { return algorithm1(arr, k); });
-                    var alg2 = runTester(() => { return algorithm1(arr, k); });
-                    var alg3 = runTester(() => { return algorithm1(arr, k); });
-                    var alg4 = runTester(() => { return algorithm1(arr, k); });
+                    var alg1 = 0.0;
+                    var alg2 = 0.0;
+                    var alg3 = 0.0;
+                    var alg4 = 0.0;
+                    for (int i = 0; i < 100; i++)
+                    {
+                        alg1 += runTester(() => { return algorithm1(arr, k); });
+                        alg2 += runTester(() => { return algorithm1(arr, k); });
+                        alg3 += runTester(() => { return algorithm1(arr, k); });
+                        alg4 += runTester(() => { return algorithm1(arr, k); });
+                    }
+
+                    alg1 = alg1 / 100;
+                    alg2 = alg2 / 100;
+                    alg3 = alg3 / 100;
+                    alg4 = alg4 / 100;
+
                     Console.WriteLine("algorithm 1:\t{0} ms", alg1);
                     Console.WriteLine("algorithm 2:\t{0} ms", alg2);
                     Console.WriteLine("algorithm 3:\t{0} ms", alg3);
